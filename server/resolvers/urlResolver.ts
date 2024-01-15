@@ -20,6 +20,15 @@ export default {
         },
       })
     },
+    deleteUrl: async (_: any, { id }: { id: number }) => {
+      try {
+        return await prisma.url.delete({
+          where: { id },
+        })
+      } catch (err) {
+        console.log(err)
+      }
+    },
   },
   Url: {
     visits: async (_: any, { id }: { id: number }) => {

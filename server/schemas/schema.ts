@@ -27,5 +27,6 @@ input createUrl {
 
 type Mutation {
   createUrl(input: createUrl!): Url!
+  deleteUrl(id: Int!): Url!
 }
 `
