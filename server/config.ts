@@ -10,3 +10,5 @@ export const corsOptions = {
   origin: [origin],
   credentials: true,
 }
+
+export const NODE_ENV = process.env.NODE_ENV || 'development'
