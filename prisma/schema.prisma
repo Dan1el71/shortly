@@ -7,14 +7,39 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  uuid     String  @id @default(uuid())
+  name     String?
+  username String? @unique
+  image    String?
+
+  userAcountId String  @unique
+  account      Account @relation(fields: [userAcountId], references: [uuid])
+
+  urls Url[]
+}
+
+model Account {
+  uuid              String  @id @default(uuid())
+  email             String? @unique
+  emailVerified     Boolean @default(false)
+  password          String?
+  provider          String?
+  providerAccountId String? @unique
+
+  User User?
+}
+
 model Url {
   id        Int      @id @default(autoincrement())
   url       String   @db.Text
   slug      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  AuthorId  String
 
   visits Visit[]
+  User   User    @relation(fields: [AuthorId], references: [uuid])
 
   @@index([slug])
 }
