@@ -3,6 +3,10 @@ import HomePage from './pages/HomePage'
 import NotFound from './pages/NotFound'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import Auth from './pages/Auth'
+import Dashboard from './pages/Dashboard'
+import { ProtectedRoute } from './components/ProtectedRoute'
+import { Toaster } from 'react-hot-toast'
 
 function App() {
   return (
@@ -10,9 +14,13 @@ function App() {
       <Header />
       <Routes>
         <Route path="*" element={<NotFound />} />
-        <Route path="/auth" element={<h1>Authorization</h1>} />
         <Route path="/" element={<HomePage />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
       </Routes>
+      <Toaster position="bottom-center" reverseOrder={false} />
       <Footer />
     </BrowserRouter>
   )
