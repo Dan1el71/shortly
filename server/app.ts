@@ -8,6 +8,7 @@ import { createYoga } from 'graphql-yoga'
 import typeDefs from './schemas/schema'
 import resolvers from './resolvers/urlResolver'
 import authRoutes from './routes/auth.routes'
+import guestRoutes from './routes/guest.routes'
 
 const CookieParser = require('cookie-parser')
 
@@ -31,6 +32,7 @@ const yoga = createYoga({
 })
 
 app.use('/api/auth', authRoutes)
+app.use('/api/guest', guestRoutes)
 app.use('/api/url', urlRoutes)
 app.use('/api/gql', yoga)
 
