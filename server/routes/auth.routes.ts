@@ -2,6 +2,7 @@ import { Router } from 'express'
 import {
   emailLoginHandler,
   guestLogin,
+  logout,
   profileHandler,
   registerEmail,
 } from '../controllers/auth.controller'
@@ -14,6 +15,7 @@ route.post('/register', registerEmail)
 
 route.post('/guest', guestLogin)
 
+route.get('/logout', requireAuth, logout)
 route.get('/profile', requireAuth, profileHandler)
 
 export default route

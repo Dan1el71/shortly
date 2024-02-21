@@ -57,6 +57,38 @@ export const guestLogin = async (req: Request, res: Response) => {
   }
 }
 
+export const logout = async (req: Request, res: Response) => {
+  const guest = req.user.guest
+
+  const user = await prisma.user.findFirst({
+    where: {
+      uuid: req.user._id.toString(),
+    },
+  })
+
+  if (guest && user) {
+    try {
+      await prisma.user.delete({
+        where: {
+          uuid: user.uuid,
+        },
+      })
+
+      await prisma.account.delete({
+        where: {
+          uuid: user.userAcountId,
+        },
+      })
+    } catch (error) {
+      return handleError(res, error)
+    }
+  }
+
+  res.clearCookie('auth').status(200).json({
+    message: 'Logged out successfully!',
+  })
+}
+
 export const profileHandler = async (req: Request, res: Response) => {
   return res.status(200).json({
     profile: req.user,
