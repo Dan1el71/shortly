@@ -22,12 +22,13 @@ model User {
 }
 
 model Account {
-  uuid              String  @id @default(uuid())
-  email             String? @unique
-  emailVerified     Boolean @default(false)
+  uuid              String   @id @default(uuid())
+  email             String?  @unique
+  emailVerified     Boolean  @default(false)
   password          String?
   provider          String?
-  providerAccountId String? @unique
+  providerAccountId String?  @unique
+  createdAt         DateTime @default(now())
 
   User User?
 }
