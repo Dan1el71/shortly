@@ -7,6 +7,7 @@ type Url {
   slug: String!
   createdAt: Date!
   updatedAt: Date!
+  AuthorId: String!
   visits: Int
 }
 
@@ -23,6 +24,7 @@ type Query {
 input createUrl {
   url: String!
   slug: String!
+  AuthorId: String!
 }
 
 type Mutation {

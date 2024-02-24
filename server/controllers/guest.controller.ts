@@ -17,9 +17,7 @@ export const getAllGuests = async (req: Request, res: Response) => {
       },
     })
 
-    console.log(user.length, accounts.length)
-
-    res.status(200).json({
+    return res.status(200).json({
       user,
       accounts,
     })
@@ -42,6 +40,12 @@ export const deleteAllGuests = async (req: Request, res: Response) => {
           userAcountId: account.uuid,
         },
       })
+
+      await prisma.url.deleteMany({
+        where: {
+          AuthorId: account.uuid,
+        },
+      })
     }
 
     await prisma.account.deleteMany({
@@ -50,7 +54,7 @@ export const deleteAllGuests = async (req: Request, res: Response) => {
       },
     })
 
-    res.status(200).json({
+    return res.status(200).json({
       message: 'Guests deleted successfully!',
     })
   } catch (error) {

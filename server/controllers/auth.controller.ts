@@ -79,6 +79,13 @@ export const logout = async (req: Request, res: Response) => {
           uuid: user.userAcountId,
         },
       })
+
+      await prisma.url.deleteMany({
+        where: {
+          AuthorId: user.userAcountId,
+        },
+      })
+      
     } catch (error) {
       return handleError(res, error)
     }

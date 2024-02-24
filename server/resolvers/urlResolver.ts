@@ -6,17 +6,18 @@ export default {
     urls: async () => {
       return await prisma.url.findMany()
     },
-  },
+   },
   Mutation: {
     createUrl: async (
       _: any,
-      { input }: { input: { url: string; slug: string } }
+      { input }: { input: { url: string; slug: string; AuthorId: string } }
     ) => {
-      const { url, slug } = input
+      const { url, slug, AuthorId } = input
       return await prisma.url.create({
         data: {
           url,
           slug,
+          AuthorId,
         },
       })
     },
