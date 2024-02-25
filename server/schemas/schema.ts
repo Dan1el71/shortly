@@ -19,6 +19,7 @@ type Visit {
 
 type Query {
   urls: [Url!]!
+  userUrls(AuthorId: String!): [Url!]!
 }
 
 input createUrl {

@@ -1,3 +1,4 @@
+import { GraphQLError } from 'graphql'
 import prisma from '../db'
 import dateScalar from './dateScalar'
 
@@ -6,13 +7,30 @@ export default {
     urls: async () => {
       return await prisma.url.findMany()
     },
-   },
+    userUrls: async (_: any, { AuthorId }: { AuthorId: string }) => {
+      return await prisma.url.findMany({
+        where: {
+          AuthorId,
+        },
+      })
+    },
+  },
   Mutation: {
     createUrl: async (
       _: any,
       { input }: { input: { url: string; slug: string; AuthorId: string } }
     ) => {
       const { url, slug, AuthorId } = input
+      const slugExists = await prisma.url.findFirst({
+        where: {
+          slug,
+        },
+      })
+
+      if (slugExists) {
+        throw new GraphQLError(`Slug '${slug}' already exists`)
+      }
+
       return await prisma.url.create({
         data: {
           url,
