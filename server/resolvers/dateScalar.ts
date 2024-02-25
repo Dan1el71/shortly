@@ -1,4 +1,4 @@
-import { GraphQLScalarType, Kind } from 'graphql'
+import { GraphQLError, GraphQLScalarType, Kind } from 'graphql'
 
 export default new GraphQLScalarType({
   name: 'Date',
@@ -7,13 +7,13 @@ export default new GraphQLScalarType({
     if (value instanceof Date) {
       return value.getTime()
     }
-    throw new Error('GraphQL Date Scalar serializer expected a `Date` object')
+    throw new GraphQLError('GraphQL Date Scalar serializer expected a `Date` object')
   },
   parseValue(value: any) {
     if (typeof value === 'number') {
       return new Date(value)
     }
-    throw new Error('GraphQL Date Scalar parser expected a `number`')
+    throw new GraphQLError('GraphQL Date Scalar parser expected a `number`')
   },
   parseLiteral(ast: any) {
     if (ast.kind === Kind.INT) {
