@@ -2,12 +2,13 @@ import toast from 'react-hot-toast'
 import { guestLogin } from '../api/auth'
 import { toastStyles } from '../styles/toast'
 import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuthStore } from '../store/auth'
 
 const Auth = () => {
   const navigate = useNavigate()
   const profile = useAuthStore((state) => state.profile)
+  const [loading, setLoading] = useState(false)
 
   const handleGithubAuth = async () => {
     try {
@@ -19,6 +20,8 @@ const Auth = () => {
 
   const handleGuestAuth = async () => {
     try {
+      setLoading(true)
+
       await guestLogin().then(() => {
         toast('Logged in as Guest', {
           icon: '👌',
@@ -61,6 +64,7 @@ const Auth = () => {
             Login with GitHub
           </button>
           <button
+            disabled={loading}
             onClick={handleGuestAuth}
             className="bg-slate-600 px-3 py-2 rounded-md w-auto mt-5"
           >

@@ -2,6 +2,7 @@ import { forwardRef } from 'react'
 
 export interface ButtonProps {
   type?: 'button' | 'submit' | 'reset'
+  title?: string
   disabled?: boolean
   className?: string
   isLoading?: boolean
@@ -14,6 +15,7 @@ export interface ButtonProps {
 const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
   return (
     <button
+      title={props.title}
       ref={ref}
       type={props.type}
       disabled={props.disabled || props.isLoading}

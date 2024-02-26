@@ -85,6 +85,7 @@ const CreateUrl = () => {
         </label>
         <div className="mt-1 flex items-center justify-between">
           <input
+            autoComplete="off"
             id="slug"
             className="mt-1 w-full rounded-md bg-lightDark px-4 py-2 text-white focus:border-none"
             placeholder="Custom slug"
@@ -101,13 +102,19 @@ const CreateUrl = () => {
               },
             })}
           />
-          <Button className="ml-2 bg-lightDark" onClick={generateSlug}>
+          <Button
+            type="button"
+            title="Random slug"
+            className="ml-2 bg-lightDark"
+            onClick={generateSlug}
+          >
             <i className="bi bi-shuffle"></i>
           </Button>
         </div>
       </div>
       <div>
         <Button
+          title="Create URL"
           isLoading={loading}
           type="submit"
           className="bg-dark "
