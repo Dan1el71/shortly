@@ -58,42 +58,43 @@ export const guestLogin = async (req: Request, res: Response) => {
 }
 
 export const logout = async (req: Request, res: Response) => {
-  const guest = req.user.guest
+  try {
+    const guest = req.user.guest
 
-  const user = await prisma.user.findFirst({
-    where: {
-      uuid: req.user._id.toString(),
-    },
-  })
+    const user = await prisma.user.findFirst({
+      where: {
+        uuid: req.user._id.toString(),
+      },
+    })
 
-  if (guest && user) {
-    try {
-      await prisma.user.delete({
-        where: {
-          uuid: user.uuid,
-        },
-      })
+    if (guest && user) {
+      const transaction = await prisma.$transaction([
+        prisma.url.deleteMany({
+          where: {
+            AuthorId: user.uuid,
+          },
+        }),
+        prisma.user.delete({
+          where: {
+            uuid: user.uuid,
+          },
+        }),
+        prisma.account.delete({
+          where: {
+            uuid: user.userAcountId,
+          },
+        }),
+      ])
 
-      await prisma.account.delete({
-        where: {
-          uuid: user.userAcountId,
-        },
-      })
-
-      await prisma.url.deleteMany({
-        where: {
-          AuthorId: user.userAcountId,
-        },
-      })
-      
-    } catch (error) {
-      return handleError(res, error)
+      await transaction
     }
-  }
 
-  res.clearCookie('auth').status(200).json({
-    message: 'Logged out successfully!',
-  })
+    res.clearCookie('auth').status(200).json({
+      message: 'Logged out successfully!',
+    })
+  } catch (error) {
+    handleError(res, error)
+  }
 }
 
 export const profileHandler = async (req: Request, res: Response) => {
