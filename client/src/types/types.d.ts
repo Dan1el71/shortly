@@ -15,3 +15,9 @@ export type Profile = {
   iat: number
   exp: number
 }
+
+export type Url = {
+  id: number
+  slug: string
+  visits: number
+}
