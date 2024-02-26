@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Navigate, Outlet, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/auth'
 import { getProfile } from '../api/auth'
 
@@ -9,6 +9,7 @@ interface Props {
 
 export const ProtectedRoute = ({ children }: Props) => {
   const navigate = useNavigate()
+  const profile = useAuthStore((state) => state.profile)
   const setProfile = useAuthStore((state) => state.setProfile)
 
   useEffect(() => {
@@ -25,6 +26,8 @@ export const ProtectedRoute = ({ children }: Props) => {
 
     loadProfile()
   }, [navigate, setProfile])
+
+  if (!profile) return <Navigate to="/auth" />
 
   return <>{children || <Outlet />}</>
 }
