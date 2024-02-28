@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Navigate, Outlet, useNavigate } from 'react-router-dom'
-import { useAuthStore } from '../store/auth'
-import { getProfile } from '../api/auth'
+import { useAuthStore } from '../../store/auth'
+import { getProfile } from '../../api/auth'
 
 interface Props {
   children?: React.ReactNode

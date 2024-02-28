@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import Auth from './Auth'
+import Auth from '../Auth/Auth'
 
 const Header = () => {
   return (

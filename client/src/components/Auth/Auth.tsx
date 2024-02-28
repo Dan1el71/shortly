@@ -1,9 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useAuthStore } from '../store/auth'
-import { Dropdown, DropdownItem } from '../ui/Dropdown'
-import { logout } from '../api/auth'
+import { useAuthStore } from '../../store/auth'
+import { Dropdown, DropdownItem } from '../../ui/Dropdown'
+import { logout } from '../../api/auth'
 import toast from 'react-hot-toast'
-import { toastStyles } from '../styles/toast'
+import { toastStyles } from '../../styles/toast'
 
 const Auth = () => {
   const navigate = useNavigate()
