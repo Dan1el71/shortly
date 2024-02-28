@@ -20,4 +20,5 @@ export type Url = {
   id: number
   slug: string
   visits: number
+  url: string
 }
