@@ -3,6 +3,6 @@ import urlController from '../controllers/url.controller'
 
 const route = Router()
 
-route.get('/', urlController)
+route.get('/:slug', urlController)
 
 export default route
