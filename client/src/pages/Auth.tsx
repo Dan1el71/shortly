@@ -4,11 +4,15 @@ import { toastStyles } from '../styles/toast'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useAuthStore } from '../store/auth'
+import EmailModal from '../components/Auth/EmailModal'
+import RegisterModal from '../components/Auth/RegisterModal'
 
 const Auth = () => {
   const navigate = useNavigate()
   const profile = useAuthStore((state) => state.profile)
   const [loading, setLoading] = useState(false)
+  const [loginModal, setLoginModal] = useState(false)
+  const [registerModal, setRegisterModal] = useState(false)
 
   const handleGithubAuth = async () => {
     try {
@@ -52,13 +56,16 @@ const Auth = () => {
           LOGIN
         </h1>
         <div className="flex flex-col">
-          <button className="bg-blue-600 px-3 py-2 rounded-md w-auto">
+          <button
+            onClick={() => setLoginModal(!loginModal)}
+            className="bg-blue-600 px-3 py-2 rounded-md w-auto"
+          >
             <i className="bi bi-envelope pr-2"></i>
             Login with Email
           </button>
           <button
-            className="bg-[#1D1D1D] px-3 py-2 rounded-md w-auto mt-5"
             onClick={handleGithubAuth}
+            className="bg-[#1D1D1D] px-3 py-2 rounded-md w-auto mt-5"
           >
             <i className="bi bi-github pr-2"></i>
             Login with GitHub
@@ -73,6 +80,18 @@ const Auth = () => {
           </button>
         </div>
       </div>
+      {loginModal && (
+        <EmailModal
+          setLoginModal={setLoginModal}
+          setRegisterModal={setRegisterModal}
+        />
+      )}
+      {registerModal && (
+        <RegisterModal
+          setLoginModal={setLoginModal}
+          setRegisterModal={setRegisterModal}
+        />
+      )}
     </div>
   )
 }
