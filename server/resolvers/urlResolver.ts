@@ -50,16 +50,12 @@ export default {
     },
   },
   Url: {
-    visits: async (_: any, { id }: { id: number }) => {
-      const visits = await prisma.url.findFirst({
-        where: { id },
-        include: {
-          _count: {
-            select: { visits: true },
-          },
+    visits: async (parent: { id: number }) => {
+      return await prisma.visit.count({
+        where: {
+          url: parent.id,
         },
       })
-      return visits ? visits._count.visits : 0
     },
   },
   Date: dateScalar,
