@@ -42,7 +42,7 @@ model Url {
   AuthorId  String
 
   visits Visit[]
-  User   User    @relation(fields: [AuthorId], references: [uuid])
+  User   User    @relation(fields: [AuthorId], references: [uuid], onDelete: Cascade)
 
   @@index([slug])
   @@index([AuthorId])
@@ -53,7 +53,7 @@ model Visit {
   createdAt DateTime @default(now())
   url       Int
 
-  urlId Url @relation(fields: [url], references: [id])
+  urlId Url @relation(fields: [url], references: [id], onDelete: Cascade)
 
   @@index([url])
 }
