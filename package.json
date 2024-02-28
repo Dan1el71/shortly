@@ -1,6 +1,6 @@
 {
   "name": "shortly",
-  "type": "module",
+  "type": "commonjs",
   "version": "1.0.0",
   "description": "Url shortener with graphql and express",
   "main": "index.js",
