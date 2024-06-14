@@ -104,7 +104,7 @@ export const registerEmail = async (req: Request, res: Response) => {
         expires: new Date(Date.now() + 86400000),
         maxAge: 86400000,
         httpOnly: true,
-        secure: NODE_ENV === 'production',
+        secure: NODE_ENV === 'PRODUCTION',
       })
       .status(201)
       .json({
@@ -149,6 +149,7 @@ export const guestLogin = async (req: Request, res: Response) => {
         expires: new Date(Date.now() + 86400000),
         maxAge: 86400000,
         httpOnly: true,
+        secure: NODE_ENV === 'PRODUCTION',
       })
       .status(200)
       .json({
