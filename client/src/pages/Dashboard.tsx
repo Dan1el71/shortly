@@ -102,8 +102,8 @@ const Dashboard = () => {
                   >
                     {url.url}
                   </p>
-                  <p>
-                    Visitas: <span className="">{url.visits}</span>
+                  <p className='text-sm py-1 text-start'>
+                    Visitas: <span className='font-semibold'>{url.visits}</span>
                   </p>
                   <Button
                     onClick={() => handleEdit(url.id)}
